@@ -81,5 +81,5 @@ test:
 production:
   <<: *default
   database: t365_production
-  username: t365
+  username:
   password: <%= ENV['T365_DATABASE_PASSWORD'] %>
