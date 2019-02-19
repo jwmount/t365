@@ -62,6 +62,10 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
+# roster365 legacies
+gem 'haml-rails'
+gem 'geocoder'
+
 # ActiveAdmin
 gem 'activeadmin'
 gem 'devise'
