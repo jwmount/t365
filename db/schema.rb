@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_19_021551) do
+ActiveRecord::Schema.define(version: 2019_02_19_231928) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,19 @@ ActiveRecord::Schema.define(version: 2019_02_19_021551) do
     t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id"
     t.index ["namespace"], name: "index_active_admin_comments_on_namespace"
     t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id"
+  end
+
+  create_table "companies", force: :cascade do |t|
+    t.string "name", default: "", null: false
+    t.integer "credit_terms", default: 30, null: false
+    t.boolean "PO_required", default: false, null: false
+    t.boolean "active", default: true, null: false
+    t.string "bookkeeping_number", default: "00000", null: false
+    t.string "line_of_business", default: "", null: false
+    t.string "url", default: "", null: false
+    t.boolean "license", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "people", force: :cascade do |t|
