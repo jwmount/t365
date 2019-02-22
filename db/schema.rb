@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_19_231928) do
+ActiveRecord::Schema.define(version: 2019_02_22_183452) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +29,20 @@ ActiveRecord::Schema.define(version: 2019_02_19_231928) do
     t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id"
   end
 
+  create_table "addresses", force: :cascade do |t|
+    t.integer "addressable_id", null: false
+    t.string "addressable_type", null: false
+    t.string "street_address", default: "", null: false
+    t.string "city", default: "", null: false
+    t.string "state", limit: 2, default: "", null: false
+    t.string "post_code", default: "", null: false
+    t.string "map_reference", default: "", null: false
+    t.float "latitude"
+    t.float "longitude"
+    t.datetime "created_at", default: "2013-10-08 00:00:00", null: false
+    t.datetime "updated_at", default: "2013-10-08 00:00:00", null: false
+  end
+
   create_table "companies", force: :cascade do |t|
     t.string "name", default: "", null: false
     t.integer "credit_terms", default: 30, null: false
@@ -38,6 +52,19 @@ ActiveRecord::Schema.define(version: 2019_02_19_231928) do
     t.string "line_of_business", default: "", null: false
     t.string "url", default: "", null: false
     t.boolean "license", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "jobs", force: :cascade do |t|
+    t.integer "solution_id", null: false
+    t.datetime "start_on", null: false
+    t.string "time", default: "", null: false
+    t.string "name", default: "", null: false
+    t.datetime "finished_on", null: false
+    t.string "purchase_order", default: "", null: false
+    t.boolean "active", default: false, null: false
+    t.boolean "complete", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

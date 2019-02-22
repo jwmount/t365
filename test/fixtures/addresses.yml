@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  company: one
+  company_type: Company
+  street{30}: MyString
+  city{30}: MyString
+  state{2}: MyString
+  post_code{10}: MyString
+  map_reference: MyString
+  latitude: 1.5
+  longitude: 1.5
+  t_timestamps: MyString
+
+two:
+  company: two
+  company_type: Company
+  street{30}: MyString
+  city{30}: MyString
+  state{2}: MyString
+  post_code{10}: MyString
+  map_reference: MyString
+  latitude: 1.5
+  longitude: 1.5
+  t_timestamps: MyString
