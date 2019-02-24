@@ -24,4 +24,6 @@ permit_params :name, :credit_terms, :PO_required, :active, :url
 #   permitted
 # end
 
-end
+  before_action :check_permissions, :only => [:new, :create, :cancel]  
+  
+end #companies.rb

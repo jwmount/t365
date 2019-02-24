@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_22_183452) do
+ActiveRecord::Schema.define(version: 2019_02_23_233445) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,7 +31,11 @@ ActiveRecord::Schema.define(version: 2019_02_22_183452) do
 
   create_table "addresses", force: :cascade do |t|
     t.integer "addressable_id", null: false
-    t.string "addressable_type", null: false
+    t.string "addressable_type"
+    t.string "company_type"
+    t.bigint "company_id"
+    t.string "person_type"
+    t.bigint "person_id"
     t.string "street_address", default: "", null: false
     t.string "city", default: "", null: false
     t.string "state", limit: 2, default: "", null: false
@@ -41,6 +45,8 @@ ActiveRecord::Schema.define(version: 2019_02_22_183452) do
     t.float "longitude"
     t.datetime "created_at", default: "2013-10-08 00:00:00", null: false
     t.datetime "updated_at", default: "2013-10-08 00:00:00", null: false
+    t.index ["company_type", "company_id"], name: "index_addresses_on_company_type_and_company_id"
+    t.index ["person_type", "person_id"], name: "index_addresses_on_person_type_and_person_id"
   end
 
   create_table "companies", force: :cascade do |t|
@@ -52,6 +58,13 @@ ActiveRecord::Schema.define(version: 2019_02_22_183452) do
     t.string "line_of_business", default: "", null: false
     t.string "url", default: "", null: false
     t.boolean "license", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "equipment", force: :cascade do |t|
+    t.string "name"
+    t.integer "company_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -79,6 +92,27 @@ ActiveRecord::Schema.define(version: 2019_02_22_183452) do
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_people_on_email", unique: true
     t.index ["reset_password_token"], name: "index_people_on_reset_password_token", unique: true
+  end
+
+  create_table "projects", force: :cascade do |t|
+    t.string "name"
+    t.integer "company_id"
+    t.integer "rep_id"
+    t.datetime "project_start_on"
+    t.string "description"
+    t.boolean "active"
+    t.integer "intend_to_bid"
+    t.integer "submitted_bid"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "reservations", force: :cascade do |t|
+    t.integer "schedule_id"
+    t.integer "equipment_id"
+    t.integer "number_requested"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

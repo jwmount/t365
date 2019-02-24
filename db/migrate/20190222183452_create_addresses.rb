@@ -1,10 +1,10 @@
 class CreateAddresses < ActiveRecord::Migration[5.2]
   def change
     create_table "addresses", force: true do |t|
-      t.integer  "addressable_id",                                             null: false
-      t.string   "addressable_type",      
+      t.integer  "addressable_id",              null: false
+      t.string   "addressable_type"      
       t.references :company, polymorphic: true
-      t.references :person, polymorphic: true                                     null: false
+      t.references :person, polymorphic: true
       t.string   "street_address",             default: "",                    null: false
       t.string   "city",                       default: "",                    null: false
       t.string   "state",            limit: 2, default: "",                    null: false
