@@ -1,4 +1,10 @@
 ActiveAdmin.setup do |config|
+  
+  # update for Rails 5.2.2
+  # from https://stackoverflow.com/posts/52663892/revisions
+  def resource_params
+    [(params[resource_request_name] || params[resource_instance_name]).try(:permit!) || {}]
+  end 
   # == Site Title
   #
   # Set the title that is displayed on the main layout
@@ -54,9 +60,13 @@ ActiveAdmin.setup do |config|
   #
   # This setting changes the method which Active Admin calls
   # within the application controller.
-  config.authentication_method = :authenticate_person!
+  # roster365 config.authentication_method = :authenticate_person!
+  config.authentication_method = :authenticate_admin_user!
 
   # == User Authorization
+  # == User Authentication (from ActiveAdmin Docs)
+  config.authorization_adapter = ActiveAdmin::CanCanAdapter
+  config.on_unauthorized_access = :access_denied
   #
   # Active Admin will automatically call an authorization
   # method in a before filter of all controller actions to
@@ -86,8 +96,8 @@ ActiveAdmin.setup do |config|
   #
   # This setting changes the method which Active Admin calls
   # (within the application controller) to return the currently logged in user.
-  config.current_user_method = :current_person
-
+  # roster365 ==> config.current_user_method = :current_person
+  config.current_user_method = :current_admin_user
   # == Logging Out
   #
   # Active Admin displays a logout link on each screen. These
@@ -98,7 +108,8 @@ ActiveAdmin.setup do |config|
   # will call the method to return the path.
   #
   # Default:
-  config.logout_link_path = :destroy_person_session_path
+  # roster365 ==> config.logout_link_path = :destroy_person_session_path
+  config.logout_link_path = :destroy_admin_user_session_path
 
   # This setting changes the http method used when rendering the
   # link. For example :get, :delete, :put, etc..
@@ -112,7 +123,9 @@ ActiveAdmin.setup do |config|
   # roots for each namespace.
   #
   # Default:
-  # config.root_to = 'dashboard#index'
+    # config.root_to = 'dashboard#index'
+    # Or,
+    config.root_to = 'companies#index'
 
   # == Admin Comments
   #

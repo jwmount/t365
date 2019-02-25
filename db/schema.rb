@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_24_013955) do
+ActiveRecord::Schema.define(version: 2019_02_24_233328) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,22 @@ ActiveRecord::Schema.define(version: 2019_02_24_013955) do
     t.datetime "updated_at", default: "2013-10-08 00:00:00", null: false
     t.index ["company_type", "company_id"], name: "index_addresses_on_company_type_and_company_id"
     t.index ["person_type", "person_id"], name: "index_addresses_on_person_type_and_person_id"
+  end
+
+  create_table "admin_users", force: :cascade do |t|
+    t.integer "role_id"
+    t.string "email"
+    t.string "encrypted_password"
+    t.string "encrypted_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer "sign_in_count"
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string "current_sign_in_ip"
+    t.string "last_sign_in_ip"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "companies", force: :cascade do |t|
@@ -125,6 +141,12 @@ ActiveRecord::Schema.define(version: 2019_02_24_013955) do
     t.integer "schedule_id"
     t.integer "equipment_id"
     t.integer "number_requested"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "roles", force: :cascade do |t|
+    t.string "name", default: "", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
