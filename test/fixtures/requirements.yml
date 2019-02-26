@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  require: one
+  require_type: Require
+  certificate_id: 1
+  for_person: false
+  for_company: false
+  for_location: false
+  preference: false
+  description: MyString
+
+two:
+  require: two
+  require_type: Require
+  certificate_id: 1
+  for_person: false
+  for_company: false
+  for_location: false
+  preference: false
+  description: MyString

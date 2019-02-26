@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  day: 2019-02-26 14:16:30
+  job_id: 1
+  equipment_units_today: 1
+
+two:
+  day: 2019-02-26 14:16:30
+  job_id: 1
+  equipment_units_today: 1

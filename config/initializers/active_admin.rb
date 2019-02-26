@@ -61,8 +61,7 @@ ActiveAdmin.setup do |config|
   # This setting changes the method which Active Admin calls
   # within the application controller.
   # roster365 config.authentication_method = :authenticate_person!
-  config.authentication_method = :authenticate_admin_user!
-
+  config.authentication_method = :authenticate_person!
   # == User Authorization
   # == User Authentication (from ActiveAdmin Docs)
   config.authorization_adapter = ActiveAdmin::CanCanAdapter
@@ -96,8 +95,7 @@ ActiveAdmin.setup do |config|
   #
   # This setting changes the method which Active Admin calls
   # (within the application controller) to return the currently logged in user.
-  # roster365 ==> config.current_user_method = :current_person
-  config.current_user_method = :current_admin_user
+  config.current_user_method = :current_person
   # == Logging Out
   #
   # Active Admin displays a logout link on each screen. These
@@ -108,9 +106,7 @@ ActiveAdmin.setup do |config|
   # will call the method to return the path.
   #
   # Default:
-  # roster365 ==> config.logout_link_path = :destroy_person_session_path
-  config.logout_link_path = :destroy_admin_user_session_path
-
+  config.logout_link_path = :destroy_person_session_path
   # This setting changes the http method used when rendering the
   # link. For example :get, :delete, :put, etc..
   #

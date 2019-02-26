@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  verbiage: MyText
+  indication: MyString
+  status: false
+  approved: false
+  change_approved_by: MyString
+  change_approved_at: 2019-02-26 15:05:52
+
+two:
+  name: MyString
+  verbiage: MyText
+  indication: MyString
+  status: false
+  approved: false
+  change_approved_by: MyString
+  change_approved_at: 2019-02-26 15:05:52

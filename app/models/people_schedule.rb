@@ -1,0 +1,4 @@
+class PeopleSchedule < ApplicationRecord
+
+
+end

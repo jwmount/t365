@@ -8,7 +8,7 @@ class CreateCompanies < ActiveRecord::Migration[5.2]
       t.string  :bookkeeping_number, default: "00000", null: false
       t.string  :line_of_business,   default: "",      null: false
       t.string  :url,                default: "",      null: false
-      t.boolean :license,            default: false,   null: false
+      t.boolean :licensee,           default: false,   null: false
 
       t.timestamps
     end

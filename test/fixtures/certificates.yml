@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  description: MyString
+  for_person: false
+  for_company: false
+  for_equipment: false
+  for_location: false
+  active: false
+
+two:
+  name: MyString
+  description: MyString
+  for_person: false
+  for_company: false
+  for_equipment: false
+  for_location: false
+  active: false

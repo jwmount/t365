@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_24_233328) do
+ActiveRecord::Schema.define(version: 2019_02_26_232355) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -65,6 +65,18 @@ ActiveRecord::Schema.define(version: 2019_02_24_233328) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "certificates", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.boolean "for_person"
+    t.boolean "for_company"
+    t.boolean "for_equipment"
+    t.boolean "for_location"
+    t.boolean "active"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "companies", force: :cascade do |t|
     t.string "name", default: "", null: false
     t.integer "credit_terms", default: 30, null: false
@@ -73,7 +85,38 @@ ActiveRecord::Schema.define(version: 2019_02_24_233328) do
     t.string "bookkeeping_number", default: "00000", null: false
     t.string "line_of_business", default: "", null: false
     t.string "url", default: "", null: false
-    t.boolean "license", default: false, null: false
+    t.boolean "licensee", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "conditions", force: :cascade do |t|
+    t.string "name"
+    t.text "verbiage"
+    t.string "indication"
+    t.boolean "status"
+    t.boolean "approved"
+    t.string "change_approved_by"
+    t.datetime "change_approved_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "dockets", force: :cascade do |t|
+    t.integer "engagement_id"
+    t.integer "person_id"
+    t.string "number"
+    t.datetime "date_worked"
+    t.datetime "dated"
+    t.datetime "received_on"
+    t.boolean "operator_signed"
+    t.boolean "client_signed"
+    t.boolean "approved"
+    t.datetime "approved_on"
+    t.string "approved_by"
+    t.decimal "a_inv_pay", precision: 7, scale: 2
+    t.decimal "b_inv_pay", precision: 7, scale: 2
+    t.decimal "supplier_inv_pay", precision: 7, scale: 2
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -86,6 +129,8 @@ ActiveRecord::Schema.define(version: 2019_02_24_233328) do
   end
 
   create_table "identifiers", force: :cascade do |t|
+    t.integer "identifiable_id", null: false
+    t.string "identifiable_type"
     t.string "company_type"
     t.bigint "company_id"
     t.string "person_type"
@@ -112,16 +157,34 @@ ActiveRecord::Schema.define(version: 2019_02_24_233328) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "materials", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "people", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
+    t.integer "company_id"
+    t.string "first_name"
+    t.string "last_name"
+    t.string "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_people_on_email", unique: true
     t.index ["reset_password_token"], name: "index_people_on_reset_password_token", unique: true
+  end
+
+  create_table "people_schedules", force: :cascade do |t|
+    t.integer "person_id"
+    t.integer "schedule_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "projects", force: :cascade do |t|
@@ -137,6 +200,35 @@ ActiveRecord::Schema.define(version: 2019_02_24_233328) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "quotes", force: :cascade do |t|
+    t.integer "project_id"
+    t.integer "quote_to_id"
+    t.integer "rep_id"
+    t.string "name"
+    t.boolean "fire_ants"
+    t.string "fire_ants_verified_by"
+    t.text "inclusions"
+    t.datetime "expected_start"
+    t.integer "duration"
+    t.string "council"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "requirements", force: :cascade do |t|
+    t.string "require_type"
+    t.bigint "require_id"
+    t.integer "certificate_id"
+    t.boolean "for_person"
+    t.boolean "for_company"
+    t.boolean "for_location"
+    t.boolean "preference"
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["require_type", "require_id"], name: "index_requirements_on_require_type_and_require_id"
+  end
+
   create_table "reservations", force: :cascade do |t|
     t.integer "schedule_id"
     t.integer "equipment_id"
@@ -147,6 +239,66 @@ ActiveRecord::Schema.define(version: 2019_02_24_233328) do
 
   create_table "roles", force: :cascade do |t|
     t.string "name", default: "", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "schedules", force: :cascade do |t|
+    t.datetime "day"
+    t.integer "job_id"
+    t.integer "equipment_units_today"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "solution_tips", force: :cascade do |t|
+    t.integer "solution_id"
+    t.integer "tip_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "solutions", force: :cascade do |t|
+    t.boolean "approved"
+    t.boolean "client_approved"
+    t.integer "drive_time_from_load_to_tip"
+    t.integer "drive_time_into_site"
+    t.integer "drive_time_into_tip"
+    t.integer "drive_time_out_of_site"
+    t.integer "drive_time_out_of_tip_site"
+    t.integer "drive_time_tip_to_load"
+    t.string "equipment_name"
+    t.decimal "equipment_dollars_per_day", precision: 7, scale: 2
+    t.integer "equipment_units_required_per_day"
+    t.decimal "hourly_hire_rate", precision: 7, scale: 2
+    t.decimal "invoice_load_client", precision: 7, scale: 2
+    t.decimal "invoice_tip_client", precision: 7, scale: 2
+    t.integer "kms_one_way"
+    t.integer "load_time"
+    t.integer "loads_per_day"
+    t.integer "material_id"
+    t.string "name"
+    t.decimal "pay_equipment_per_unit", precision: 7, scale: 2
+    t.decimal "pay_load_client", precision: 7, scale: 2
+    t.decimal "pay_tip_client", precision: 7, scale: 2
+    t.decimal "pay_tip", precision: 7, scale: 2
+    t.decimal "pay_tolls", precision: 7, scale: 2
+    t.boolean "purchase_order_required"
+    t.integer "quote_id"
+    t.string "solution_type"
+    t.boolean "semis_permitted"
+    t.integer "total_material"
+    t.string "unit_of_material"
+    t.integer "unload_time"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "tips", force: :cascade do |t|
+    t.string "name"
+    t.integer "company_id"
+    t.decimal "fee"
+    t.string "fire_ant_risk_level"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

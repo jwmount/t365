@@ -1,0 +1,2 @@
+class SolutionTip < ApplicationRecord
+end

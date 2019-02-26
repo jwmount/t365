@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  company_id: 1
+  fee: 9.99
+  fire_ant_risk_level: MyString
+
+two:
+  name: MyString
+  company_id: 1
+  fee: 9.99
+  fire_ant_risk_level: MyString

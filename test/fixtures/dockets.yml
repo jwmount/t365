@@ -1,0 +1,33 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  engagement_id: 1
+  person_id: 1
+  number: MyString
+  date_worked: 2019-02-26 15:12:56
+  dated: 2019-02-26 15:12:56
+  received_on: 2019-02-26 15:12:56
+  operator_signed: false
+  client_signed: false
+  approved: false
+  approved_on: 2019-02-26 15:12:56
+  approved_by: MyString
+  a_inv_pay: 9.99
+  b_inv_pay: 9.99
+  supplier_inv_pay: 9.99
+
+two:
+  engagement_id: 1
+  person_id: 1
+  number: MyString
+  date_worked: 2019-02-26 15:12:56
+  dated: 2019-02-26 15:12:56
+  received_on: 2019-02-26 15:12:56
+  operator_signed: false
+  client_signed: false
+  approved: false
+  approved_on: 2019-02-26 15:12:56
+  approved_by: MyString
+  a_inv_pay: 9.99
+  b_inv_pay: 9.99
+  supplier_inv_pay: 9.99

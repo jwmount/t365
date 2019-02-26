@@ -5,26 +5,34 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-Person.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') 
-  #if Rails.env.development? || Rails.env.production
+#
+@licensee = "Valley Farm Transport"
+@lob = "Farm transport"
+@url = "www.ValleyTransport.com"
+
+
+puts "\n\nSeed for LICENSEE: \t#{@licensee}"
+#   #if Rails.env.development? || Rails.env.production
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 # Works fine with rake db:reset
 #
+puts 'Roles'
 roles_list = %w[ admin bookeeper driver management operations sales superadmin visitor]
 roles_list.each do |role|
+  puts role
   Role.create!(name: role)
 end
 
 # Create users (roles not implemented yet, MUST be chosen from roles_list)
 user_list = [
-  ['bookeeper@venuesoftware.com', 'bookeeper', 2],
-  ['driver@venuesoftware.com', 'driver', 3],
-  ['manager@venuesoftware.com', 'manager', 4],
-  ['dispatcher@venuesoftware.com', "dispatcher", 5],
-  ['Sales@venuesoftware.com', 'T365', 6],
-  ['john@venuesoftware.com', 'rT365', 7],
-  ['visitor@venuesoftware.com', 'visitor', 8]
+  ['bookeeper@T365.com', 'bookeeper', 2],
+  ['driver@T365.com', 'driver', 3],
+  ['manager@T365.com', 'manager', 4],
+  ['dispatcher@T365.com', "dispatcher", 5],
+  ['Sales@T365.com', 'T365', 6],
+  ['john@T365.com', 'rT365', 7],
+  ['visitor@T365.com', 'visitor', 8]
   ]
 
 user_list.each do |email, password, role|  
@@ -35,15 +43,20 @@ user_list.each do |email, password, role|
   end
   Rails::logger.info( "*-*-*-*-* Created user #{email}, pswd: #{password.slice(0..2)}, role: #{role}" )
 end
+puts "Users created: #{AdminUser.count}"
+
+=begin
+nether one works  
 
 namespace :tips do
-#  Rake::Task['load'].invoke
+  Rake::Task['load'].invoke
   Rake::Task['all'].invoke
 end
 
 namespace :certificates do
   Rake::Task['all'].invoke
 end
+=end
 
 #
 # D I R E C T O R Y   C O M P A N I E S
@@ -58,9 +71,6 @@ end
 # Note that here the Rep is named 'Account Representative' and this needs to be edited to make any 
 # sense once the account gets used by someone.
 
-@licensee = "Valley Farm Transport"
-@lob = "Farm transport"
-@url = "www.ValleyTransport.com"
 
 companies_list = [
 # LICENSEE - This cannot be DRY with config/boots.rb, at least until we figure out how to use the 
@@ -215,15 +225,113 @@ companies_list = [
 # 
 # Create Rep once licensee company exists
 #
+puts "\nCompanies\n"
 companies_list.each do |model| 
-  puts
-  @company = Company.create!( model["company"] )
+  @company = Company.find_or_create_by( model["company"] )
+  puts @company.name
   @company.addresses.create!( model["address"] )
   model["person"]["title"] = "Rep" if @company.licensee
-  @company.people.create!( model["person"] )
-  @company.identifiers.create!( model["identifier"] )
-  @company.tips.create!( model["tip"] ) unless model["tip"].nil?
- puts "#{model} -- CREATED"
+  @company.people.create( model["person"] )
+  @company.identifiers.create( model["identifier"] )
+  @company.tips.create( model["tip"] ) unless model["tip"].nil?
+end
+
+# Material types  
+#
+[
+  "Clean Fill",
+  "Clean Compactable Fill",
+  "General Fill",
+  "Shale",
+  "Clay Fill",
+  "Spoil",
+  "Unsuitable Rocky Fill",
+  "Unsuitable Clay Fill",
+  "Unsuitable Fill",
+  "Unsuitable Spoil",
+  "Unsuitable Material",
+  "Top Soil ",
+  "Screened Top Soil",
+  "Unscreened Top Soil",
+  "Clay Topsoil",
+  "Mulch Fine",
+  "Mulch Coarse",
+  "Mulch Dirty",
+  "Green Waste",
+  "Green Waste Tree Stumps, Palms or Root Balls",
+  "C&D Waste",
+  "C&D Waste 20%  and under Concrete",
+  "C&D Waste 21% and over Concrete",
+  "Timber ",
+  "Steel ",
+  "Rubbish",
+  "Clean Concrete",
+  "Dirty Concrete",
+  "Concrete Light Grade",
+  "Concrete Heavy Grade",
+  "Contaminated Soil",
+  "Contaminated Soil Heavy Metals",
+  "Contaminated Soil Petroleum ",
+  "Asbestos contaminated Soil",
+  "Asbestos ",
+  "Acid Sulphate Fill",
+  "Acid Sulphate Fill Over Optimum",
+  "Lime Treated Acid Sulphate Fill",
+  "Sand",
+  "Clean Sand Free of contaminates",
+  "Coarse Sand",
+  "Fine Sand",
+  "White Sand",
+  "Washed Sand",
+  "Beach Sand",
+  "Coal stone",
+  "Over Optimum Fill",
+  "Over Burden",
+  "CBR 0 to 4 Material",
+  "CBR 5 to 8 Material",
+  "CBR 8 to 10 Material",
+  "CBR 10+ Material",
+  "CBR 15+ Material",
+  "CBR 20+ Material",
+  "CBR 30+ Material",
+  "CBR 40+ Material",
+  "Select Fill",
+  "Select Fill ( Unscreened Deco)",
+  "Select Fill ( Screened Deco)",
+  "Select Fill ( Sandstone Product)",
+  "Select Fill ( Coal Stone)",
+  "Bitumen",
+  "Cold Mix Asphalt",
+  "Hot Mix Asphalt",
+  "Road Base",
+  "Crusher Dust, Concrete",
+  "5mm Crushed Concrete",
+  "10mm Crushed Concrete",
+  "20mm Crushed Concrete",
+  "40mm Crushed Concrete",
+  "70mm Crushed Concrete",
+  "Crusher Dust",
+  "5mm Crushed Rock",
+  "10mm Crushed Rock",
+  "20mm Crushed Rock",
+  "40mm Crushed Rock",
+  "70mm Crushed Rock",
+  "150mm Crushed Rock",
+  "300mm Minus Crushed Rock",
+  "Shot Rock",
+  "Large Rock, Boulders",
+  "2.5 Gravel ",
+  "2.3 Gravel,CBR 45",
+  "2.1 Gravel, CBR 80",
+  "Potable Water",
+  "Non Potable Water",
+  "Recycled Water",
+  "Indurated Sand",
+  "Rock Institute",
+  "As Directed",
+  "Sandy Fill"
+].each do |name|
+  material = Material.create!( name: name)
 end
 
 #
@@ -242,6 +350,7 @@ end
 #              engagements
 #
 
+
 demo_list = [
   { "company"    => { name: "Demo Company", line_of_business: "General resource contractor", url: "www.wsj.com"},
     "address"    => { street_address: "9 Alder Court", city: "Fairfax", state: "CA", post_code: "94935"},
@@ -258,15 +367,19 @@ demo_list = [
   }
 ]
 
+puts "\nDemo list\n"
 demo_list.each do |model| 
-  @company = Company.create!( model["company"] )
-  @company.addresses.create!( model["address"] )
-  @company.people.create!( model["person"] )
-  @company.identifiers.create!( model["identifier"] )
-  @company.equipment.create!( model["equipment"])
+  @company = Company.find_or_create_by( model["company"] )
+
+  @company.save
+  @company.addresses.find_or_create_by( model["address"] )
+  @company.people.create( model["person"] )
+  @company.identifiers.create( model["identifier"] )
+  @company.equipment.create( model["equipment"])
+  @company.save
 
   @project = @company.projects.new( model["project"])
-  @project.rep_id = 1
+  @project.rep_id = 
   @project.save!
 
   @project.addresses.create!( model["projAddr"])
@@ -282,14 +395,15 @@ demo_list.each do |model|
   @solution = @quote.solutions.new( model ["solution"] )
   @solution.material_id = 1
   @solution.equipment_name = "Truck"
-  @solution.save!
+  @solution.save
 
-  @job = @solution.jobs.create!( model ["job"] )
-  @schedule = @job.schedules.create!( model ["schedule"] )
-
+  @job = @solution.jobs.create( model ["job"] )
+byebug
+  @schedule = @job.schedules.create( model ["schedule"] )
+byebug
   @engagement = @schedule.engagements.new( model ["engagement"] )
   @engagement.person_id = 1
-  @engagement.save!
+  @engagement.save
 
   #@docket = @engagement.dockets.create!( person_id: 1, number: "00001")
 end
@@ -514,103 +628,6 @@ end
 
 
 #
-# Material types  
-#
-[
-  "Clean Fill",
-  "Clean Compactable Fill",
-  "General Fill",
-  "Shale",
-  "Clay Fill",
-  "Spoil",
-  "Unsuitable Rocky Fill",
-  "Unsuitable Clay Fill",
-  "Unsuitable Fill",
-  "Unsuitable Spoil",
-  "Unsuitable Material",
-  "Top Soil ",
-  "Screened Top Soil",
-  "Unscreened Top Soil",
-  "Clay Topsoil",
-  "Mulch Fine",
-  "Mulch Coarse",
-  "Mulch Dirty",
-  "Green Waste",
-  "Green Waste Tree Stumps, Palms or Root Balls",
-  "C&D Waste",
-  "C&D Waste 20%  and under Concrete",
-  "C&D Waste 21% and over Concrete",
-  "Timber ",
-  "Steel ",
-  "Rubbish",
-  "Clean Concrete",
-  "Dirty Concrete",
-  "Concrete Light Grade",
-  "Concrete Heavy Grade",
-  "Contaminated Soil",
-  "Contaminated Soil Heavy Metals",
-  "Contaminated Soil Petroleum ",
-  "Asbestos contaminated Soil",
-  "Asbestos ",
-  "Acid Sulphate Fill",
-  "Acid Sulphate Fill Over Optimum",
-  "Lime Treated Acid Sulphate Fill",
-  "Sand",
-  "Clean Sand Free of contaminates",
-  "Coarse Sand",
-  "Fine Sand",
-  "White Sand",
-  "Washed Sand",
-  "Beach Sand",
-  "Coal stone",
-  "Over Optimum Fill",
-  "Over Burden",
-  "CBR 0 to 4 Material",
-  "CBR 5 to 8 Material",
-  "CBR 8 to 10 Material",
-  "CBR 10+ Material",
-  "CBR 15+ Material",
-  "CBR 20+ Material",
-  "CBR 30+ Material",
-  "CBR 40+ Material",
-  "Select Fill",
-  "Select Fill ( Unscreened Deco)",
-  "Select Fill ( Screened Deco)",
-  "Select Fill ( Sandstone Product)",
-  "Select Fill ( Coal Stone)",
-  "Bitumen",
-  "Cold Mix Asphalt",
-  "Hot Mix Asphalt",
-  "Road Base",
-  "Crusher Dust, Concrete",
-  "5mm Crushed Concrete",
-  "10mm Crushed Concrete",
-  "20mm Crushed Concrete",
-  "40mm Crushed Concrete",
-  "70mm Crushed Concrete",
-  "Crusher Dust",
-  "5mm Crushed Rock",
-  "10mm Crushed Rock",
-  "20mm Crushed Rock",
-  "40mm Crushed Rock",
-  "70mm Crushed Rock",
-  "150mm Crushed Rock",
-  "300mm Minus Crushed Rock",
-  "Shot Rock",
-  "Large Rock, Boulders",
-  "2.5 Gravel ",
-  "2.3 Gravel,CBR 45",
-  "2.1 Gravel, CBR 80",
-  "Potable Water",
-  "Non Potable Water",
-  "Recycled Water",
-  "Indurated Sand",
-  "Rock Institute",
-  "As Directed",
-  "Sandy Fill"
-].each do |name|
-  material = Material.create!( name: name)
-end
 
 # Conditions
 # Fire Ants verbiage text is composed at run time.
