@@ -1,6 +1,6 @@
 class Project < ApplicationRecord
 
-  #include Sluggable
+  include Sluggable
 
   # audited, not on Rails 4 yet
 

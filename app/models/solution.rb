@@ -26,4 +26,10 @@ class Solution < ApplicationRecord
     accepts_nested_attributes_for :address
     accepts_nested_attributes_for :requirements
 
+  #
+  # V A L I D A T I O N S
+  #
+
+  validates_presence_of :name, :equipment_name
+
 end

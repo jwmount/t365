@@ -60,8 +60,8 @@ ActiveAdmin.setup do |config|
   #
   # This setting changes the method which Active Admin calls
   # within the application controller.
-  # roster365 config.authentication_method = :authenticate_person!
-  config.authentication_method = :authenticate_person!
+  # T365 config.authentication_method = :authenticate_person!
+  config.authentication_method = :authenticate_admin_user
   # == User Authorization
   # == User Authentication (from ActiveAdmin Docs)
   config.authorization_adapter = ActiveAdmin::CanCanAdapter
