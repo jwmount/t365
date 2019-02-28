@@ -7,7 +7,7 @@
 # Note:  hash values cannot be duplicates so cannot have two "Identifiers" for example.
 #
 
-# TODO -- Create a Licensee Setup sequence better than this static approach.
+# [TODO] -- Create a Licensee Setup sequence better than this static approach.
 # Note that here the Rep's name is 'Account Representative' and this needs to be edited to make any 
 # sense once the account gets used by someone.
 #
