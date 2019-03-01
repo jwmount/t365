@@ -10,7 +10,7 @@ ActiveAdmin.setup do |config|
   # Set the title that is displayed on the main layout
   # for each of the active admin pages.
   #
-  config.site_title = "T365"
+  config.site_title = "T365 Admin"
 
   # Set the link url for the title. For example, to take
   # users to your main site. Defaults to no link.
@@ -61,7 +61,7 @@ ActiveAdmin.setup do |config|
   # This setting changes the method which Active Admin calls
   # within the application controller.
   # T365 config.authentication_method = :authenticate_person!
-  config.authentication_method = :authenticate_admin_user
+  config.authentication_method = :authenticate_admin_user!
   # == User Authorization
   # == User Authentication (from ActiveAdmin Docs)
   config.authorization_adapter = ActiveAdmin::CanCanAdapter

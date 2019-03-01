@@ -12,8 +12,9 @@
 
 
 
-#nether one works, but maybe useful for selective loading from files  
-
+# rake tasks can be executied or invoked, they can be ordered.
+# https://medium.com/@sampatbadhe/rake-task-invoke-or-execute-419cd689c3bd
+=begin 
 namespace :tips do
   Rake::Task['load'].invoke
   Rake::Task['all'].invoke
@@ -22,7 +23,7 @@ end
 namespace :certificates do
   Rake::Task['all'].invoke
 end
-
+=end
 #
 # W R A P U P
 #

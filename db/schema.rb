@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_26_232355) do
+ActiveRecord::Schema.define(version: 2019_03_01_194140) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -77,6 +77,19 @@ ActiveRecord::Schema.define(version: 2019_02_26_232355) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "certs", force: :cascade do |t|
+    t.string "require_type"
+    t.bigint "require_id"
+    t.integer "certifiable_id"
+    t.datetime "expires_on"
+    t.string "serial_number"
+    t.boolean "permanent"
+    t.boolean "active"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["require_type", "require_id"], name: "index_certs_on_require_type_and_require_id"
+  end
+
   create_table "companies", force: :cascade do |t|
     t.string "name", default: "", null: false
     t.integer "credit_terms", default: 30, null: false
@@ -117,6 +130,21 @@ ActiveRecord::Schema.define(version: 2019_02_26_232355) do
     t.decimal "a_inv_pay", precision: 7, scale: 2
     t.decimal "b_inv_pay", precision: 7, scale: 2
     t.decimal "supplier_inv_pay", precision: 7, scale: 2
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "engagements", force: :cascade do |t|
+    t.integer "schedule_id"
+    t.integer "person_id"
+    t.integer "docket_id"
+    t.string "docket_number"
+    t.boolean "onsite_now"
+    t.boolean "onsite_at"
+    t.boolean "breakdown"
+    t.boolean "no_show"
+    t.integer "OK_tomorrow"
+    t.boolean "engagement_declined"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

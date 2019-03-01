@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  schedule_id: 1
+  person_id: 1
+  docket_id: 1
+  docket_number: MyString
+  onsite_now: false
+  onsite_at: false
+  breakdown: false
+  no_show: false
+  OK_tomorrow: 1
+  engagement_declined: false
+
+two:
+  schedule_id: 1
+  person_id: 1
+  docket_id: 1
+  docket_number: MyString
+  onsite_now: false
+  onsite_at: false
+  breakdown: false
+  no_show: false
+  OK_tomorrow: 1
+  engagement_declined: false

@@ -30,7 +30,7 @@ end
   Rails::logger.info( "*-*-*-*-* About to Create user #{email}, pswd: #{password.slice(0..2)}, role: #{role}" )
   user = AdminUser.where( email: email )
   if user[0] == nil
-    AdminUser.find_or_create_by( email: email, password: password, password_confirmation: password, role_id: role)
+    AdminUser.find_or_create_by( email: email, encrypted_password: password, encrypted_password_token: password, role_id: role)
   end
   Rails::logger.info( "*-*-*-*-* Created user #{email}, pswd: #{password.slice(0..2)}, role: #{role}" )
 end

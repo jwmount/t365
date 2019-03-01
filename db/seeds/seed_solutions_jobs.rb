@@ -1,5 +1,3 @@
-seed_solutions_jobs.rb
-
 #
 # D E M O  P R O J E C T  A N D  D E P E N D E N T S
 #
@@ -16,7 +14,7 @@ seed_solutions_jobs.rb
 demo_list = [
   { "company"    => { name: "Demo Company", line_of_business: "General resource contractor", url: "www.wsj.com"},
     "address"    => { street_address: "9 Alder Court", city: "Fairfax", state: "CA", post_code: "94935"},
-    "person"     => { first_name: "Demo", last_name: "Demosthenes"},
+    "person"     => { first_name: "Demo", last_name: "Demosthenes", email: "www.wsj.com", encrypted_password: "password"},
     "identifier" => { name: "Main Number", value: "415-478-1121"},
     "equipment"  => { name: "Truck" },
     "project"    => { name: 'DemoProject', project_start_on: Date.today },
@@ -32,34 +30,35 @@ demo_list = [
 puts "\nDemo list\n"
 demo_list.each do |model| 
   @company = Company.find_or_create_by( model["company"] )
+  (@company.addresses.find_or_create_by( model["address"] )).save
 
-  @company.save
-  @company.addresses.find_or_create_by( model["address"] )
-  @company.people.create( model["person"] )
-  @company.identifiers.create( model["identifier"] )
-  @company.equipment.create( model["equipment"])
+  @people = @company.people.find_or_create_by( model["person"] )
+  @people.save
+  p @company.errors.full_messages
+
+  @company.identifiers.find_or_create_by( model["identifier"] )
+  @company.equipment.find_or_create_by( model["equipment"])
   @company.save
 
-  @project = @company.projects.new( model["project"])
+  @project = @company.projects.find_or_create_by( model["project"])
   @project.rep_id = 
   @project.save!
 
-  @project.addresses.create!( model["projAddr"])
+  @project.addresses.find_or_create_by( model["projAddr"])
   @projmgr = @company.people.first
 
-  @quote = @project.quotes.new( model["quote"])
+  @quote = @project.quotes.find_or_create_by( model["quote"])
   @quote.quote_to_id = @projmgr.id
   @quote.rep_id = 1
   @quote.expected_start = Date.today + 1
   @quote.fire_ants_verified_by = 1
   @quote.save! 
 
-  @solution = @quote.solutions.new( model ["solution"] )
+  @solution = @quote.solutions.find_or_create_by( model ["solution"] )
   @solution.material_id = 1
   @solution.equipment_name = "Truck"
   @solution.valid?
-  @solution.save
-
+  
   # https://stackoverflow.com/questions/4714001/in-rails-how-can-i-find-out-what-caused-a-save-to-fail-other-than-validatio
   # ActiveRecord::RecordInvalid 
   # ActiveRecord::RecordNotSaved
@@ -70,14 +69,19 @@ demo_list.each do |model|
   rescue ActiveRecord::RecordNotSaved
     puts errs = @solution.errors.full_messages
   end
-    
 
+  #Unclear if this is useful.  Fails on line 75.  Routes problem?  Nesting is too deep at this level!
+=begin  
+  @job = @solution.jobs.find_or_create_by( model ["job"] )
+  @job.save
 
-  @job = @solution.jobs.create( model ["job"] )
-  @schedule = @job.schedules.create( model ["schedule"] )
-  @engagement = @schedule.engagements.new( model ["engagement"] )
+  @schedule = @job.schedules.find_or_create_by( model ["schedule"] )
+  @schedule.save
+
+  @engagement = @schedule.engagements.find_or_create_by( model ["engagement"] )
   @engagement.person_id = 1
   @engagement.save
 
   #@docket = @engagement.dockets.create!( person_id: 1, number: "00001")
+=end
 end

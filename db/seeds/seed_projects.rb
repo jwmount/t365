@@ -5,7 +5,8 @@
 #
 # [TODO] -- make a better way to find Reps
 def rep
-  rep ||= Person.where("title = ?", "Rep")[0].id
+  #rep ||= Person.where("title = ?", "Rep")[0].id
+  rep ||= Person.first
 end
 
 
@@ -194,15 +195,16 @@ end
     @company = Company.find_or_create_by( model["company"] )
     @company.addresses.find_or_create_by( model["address"] )
     @company.identifiers.find_or_create_by( model["identifier"] )
-    puts @company.name + " -- Created."
+    
   rescue
     puts "rescue model: #{model.inspect}"
     puts model["company"][:name]
     @company = Company.where( "name = ?", model["company"][:name])
     @company = @company[0]
   end
+
   @project = @company.projects.find_or_create_by( model["project"])
   @project.addresses.find_or_create_by( model["projAddr"])
   @projmgr = @company.people.first
-  puts "#{model} -- Created."
+ 
 end

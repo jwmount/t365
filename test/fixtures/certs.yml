@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  require: one
+  require_type: Require
+  certifiable_id: 1
+  expires_on: 2019-03-01 11:41:40
+  serial_number: MyString
+  permanent: false
+  active: false
+
+two:
+  require: two
+  require_type: Require
+  certifiable_id: 1
+  expires_on: 2019-03-01 11:41:40
+  serial_number: MyString
+  permanent: false
+  active: false

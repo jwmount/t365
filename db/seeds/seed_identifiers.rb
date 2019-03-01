@@ -17,4 +17,3 @@ personal_identifiers_list.each do |model|
   end
 end
 
-p "#Identifiers.count" + "Identifiers loaded.""
