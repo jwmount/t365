@@ -14,7 +14,7 @@ T365::Application.routes.draw do
 
   namespace :admin do
   # set namespace root in active_admin.rb
-  # root to: 'companies#index'
+    root 'companies#index'
 
     resources :roles do
       resources :admin_users
@@ -60,6 +60,7 @@ T365::Application.routes.draw do
   end #:api namespace
 =end
  #root   'home#index'   #works
- root  'admin/dashboard#index' 
+ #root  'admin/dashboard#index' 
+ # root 'companies#index'
  
 end #routes

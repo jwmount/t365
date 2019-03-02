@@ -2,7 +2,7 @@ ActiveAdmin.register AdminUser do
 # See permitted parameters documentation:
 # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
 #
-permit_params :list, :of, :attributes, :on, :model
+ 
   menu parent: "System Administration"
 
   filter :email
@@ -59,6 +59,8 @@ permit_params :list, :of, :attributes, :on, :model
     end
   end
 
+  permit_params  :email, :encrypted_password, :reset_password_token, :reset_password_sent_at, :password, :remember_me,
+   :list, :of, :attributes, :on, :model
 # found unpermitted parameters: utf8, authenticity_token, commit
   controller do
     def permitted_params

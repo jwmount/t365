@@ -95,7 +95,9 @@ ActiveAdmin.setup do |config|
   #
   # This setting changes the method which Active Admin calls
   # (within the application controller) to return the currently logged in user.
-  config.current_user_method = :current_person
+  # generated with r5.2.2
+  # config.current_user_method = :current_person
+  config.current_user_method = :current_admin_user
   # == Logging Out
   #
   # Active Admin displays a logout link on each screen. These

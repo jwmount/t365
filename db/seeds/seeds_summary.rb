@@ -1,7 +1,7 @@
 # 
 # RUNS LAST in series of seed_* tasks.
 #
-# rake db:demo 
+# rake db:demo  or rake:db:demo2 (enforces order)
 #
 # A useful Example:
 #
@@ -11,24 +11,12 @@
 # [TODO] Could make this into a new task that just gives us a summary, e.g. rake db:summary
 
 
-
-# rake tasks can be executied or invoked, they can be ordered.
-# https://medium.com/@sampatbadhe/rake-task-invoke-or-execute-419cd689c3bd
-=begin 
-namespace :tips do
-  Rake::Task['load'].invoke
-  Rake::Task['all'].invoke
-end
-
-namespace :certificates do
-  Rake::Task['all'].invoke
-end
-=end
 #
 # W R A P U P
 #
 puts "\n\nLICENSEE: \t#{@licensee}"
 puts "Addresses:    \t#{Address.count.to_s}"
+puts "Admin Users:  \t#{AdminUser.count.to_s}"
 puts "Certificates: \t#{Certificate.count.to_s}"
 puts "Cert:         \t#{Cert.count.to_s}"
 puts "Companies:    \t#{Company.count.to_s}"
@@ -45,5 +33,4 @@ puts "Roles:        \t#{Role.count.to_s}"
 puts "Schedules:    \t#{Schedule.count.to_s}"
 puts "Solutions:    \t#{Solution.count.to_s}"
 puts "Tips:         \t#{Tip.count.to_s}"
-puts "Users:        \t#{AdminUser.count.to_s}"
 puts "\n\n --Done"

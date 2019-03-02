@@ -22,7 +22,7 @@ end
   ['manager@T365.com', 'manager', 4],
   ['dispatcher@T365.com', "dispatcher", 5],
   ['Sales@T365.com', 'T365', 6],
-  ['john@T365.com', 'rT365', 7],
+  ['john@T365.com', 'T365', 7],
   ['visitor@T365.com', 'visitor', 8]
   ]
 
