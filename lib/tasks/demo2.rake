@@ -2,6 +2,7 @@
 desc "demo2 -- Run selected tasks db/seeds directory in specific sequence"
 
 @seed_files = [
+	"seed_admin_user",
 	"seed_companies", 
 	"seed_conditions",
 	"seed_identifiers",

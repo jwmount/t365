@@ -15,8 +15,8 @@
 # W R A P U P
 #
 puts "\n\nLICENSEE: \t#{@licensee}"
-puts "Addresses:    \t#{Address.count.to_s}"
 puts "Admin Users:  \t#{AdminUser.count.to_s}"
+puts "Addresses:    \t#{Address.count.to_s}"
 puts "Certificates: \t#{Certificate.count.to_s}"
 puts "Cert:         \t#{Cert.count.to_s}"
 puts "Companies:    \t#{Company.count.to_s}"

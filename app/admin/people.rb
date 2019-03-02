@@ -1,11 +1,6 @@
 ActiveAdmin.register Person do
 
-  #actions :all # , :except => [:destroy]
-  #menu :parent => "Admin", :if => lambda{|tabs_renderer|
-  #  controller.current_ability.can?(:manage, Role) &&
-  #  !Company.all.empty?
-  #}
-
+ 
   menu :parent => "Company"
   belongs_to :company
 

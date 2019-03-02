@@ -16,10 +16,8 @@ T365::Application.routes.draw do
   # set namespace root in active_admin.rb
     root 'companies#index'
 
-    resources :roles do
-      resources :admin_users
-    end
-
+    resources :admin_users
+    
     resources :companies do
       resources :projects do
         resources :quotes do 

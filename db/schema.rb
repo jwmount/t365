@@ -50,8 +50,8 @@ ActiveRecord::Schema.define(version: 2019_03_01_194140) do
   end
 
   create_table "admin_users", force: :cascade do |t|
-    t.integer "role_id"
     t.string "email"
+    t.string "password"
     t.string "encrypted_password"
     t.string "encrypted_password_token"
     t.datetime "reset_password_sent_at"
